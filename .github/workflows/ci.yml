@@ -1,0 +1,30 @@
+name: Java Pipeline ci
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  build:
+    run-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: setup Java
+        uses: actions/setup-java@v4
+        with: 
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: compile
+        run: mvn compile
+      - name: test
+        run: mvn test
+      - name: package
+        run: mvn package
+      - name: docker build image
+        run: docker build -t calc-app .
+
