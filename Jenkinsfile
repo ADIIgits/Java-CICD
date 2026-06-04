@@ -1,7 +1,9 @@
 pipeline {
-
     agent any
 
+    tools {
+        maven 'maven3' // Ensure you have a Maven tool configured in Jenkins Global Tool Configuration with this name
+    }
     stages {
 
         stage('Build') {
